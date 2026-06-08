@@ -7,19 +7,19 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    const { messages } = req.body;
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const { messages, system } = req.body;
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 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',
-        'HTTP-Referer': 'https://redguardian.vercel.app',
-        'X-Title': 'GUARDIAN'
+        'x-api-key': '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',
+        'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-3.3-70b-instruct:free',
+        model: 'claude-haiku-4-5',
         max_tokens: 1024,
-        messages
+        system: system,
+        messages: messages
       })
     });
 
