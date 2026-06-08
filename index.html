@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Red GUARDIÁN — Protección contra el Grooming Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--neg:#080c18;--card:rgba(14,21,40,0.92);--azul:#3b82f6;--azs:#1d4ed8;--verde:#10b981;--rojo:#ef4444;--ama:#f59e0b;--vio:#8b5cf6;--texto:#e2e8f0;--suave:#64748b;--borde:rgba(59,130,246,0.13)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--neg);color:var(--texto);overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 15% 15%,rgba(59,130,246,0.07) 0%,transparent 55%),radial-gradient(ellipse 50% 40% at 85% 85%,rgba(16,185,129,0.05) 0%,transparent 50%);pointer-events:none;z-index:0}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;background:rgba(8,12,24,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--borde);display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer}
+.nav-logo-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--azul),var(--verde));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px}
+.nav-logo h1{font-family:'Playfair Display',serif;font-size:17px;letter-spacing:2px}
+.nav-logo span{font-size:10px;color:var(--suave);display:block;letter-spacing:1px}
+.nav-links{display:flex;gap:4px}
+.nav-links a{color:var(--suave);text-decoration:none;font-size:12px;font-weight:500;padding:7px 12px;border-radius:7px;cursor:pointer;transition:all .2s}
+.nav-links a:hover{color:var(--texto);background:rgba(59,130,246,0.1)}
+.nav-cta{background:var(--azul);color:#fff;border:none;padding:8px 18px;border-radius:9px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+.nav-cta:hover{background:var(--azs)}
+
+section{position:relative;z-index:5}
+.fade-in{opacity:0;transform:translateY(18px);transition:all .6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 5% 60px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:50px;padding:6px 18px;font-size:11px;color:var(--verde);letter-spacing:1px;text-transform:uppercase;margin-bottom:28px}
+.hero h2{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,66px);font-weight:400;line-height:1.12;margin-bottom:18px}
+.hero h2 em{font-style:italic;color:var(--azul)}
+.hero p{font-size:17px;color:var(--suave);max-width:560px;line-height:1.75;margin-bottom:36px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:56px}
+.btn-p{background:linear-gradient(135deg,var(--azul),var(--azs));color:#fff;border:none;padding:14px 30px;border-radius:50px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 8px 24px rgba(59,130,246,0.3);transition:all .3s}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(59,130,246,0.4)}
+.btn-s{background:transparent;color:var(--texto);border:1px solid var(--borde);padding:14px 30px;border-radius:50px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s}
+.btn-s:hover{border-color:var(--azul);background:rgba(59,130,246,0.07)}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;width:100%;max-width:860px}
+.stat-it{background:var(--card);border:1px solid var(--borde);border-radius:14px;padding:22px 18px;text-align:center;backdrop-filter:blur(10px)}
+.stat-n{font-family:'Playfair Display',serif;font-size:38px;color:var(--azul);line-height:1;margin-bottom:6px}
+.stat-l{font-size:12px;color:var(--suave);line-height:1.4}
+
+/* SECCIÓN GENÉRICA */
+.sec{padding:90px 5%}
+.sec-alt{padding:90px 5%;background:rgba(14,21,40,0.4)}
+.tag{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--azul);margin-bottom:12px}
+.tit{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,44px);font-weight:400;line-height:1.2;margin-bottom:14px}
+.tit em{font-style:italic;color:var(--azul)}
+.sub{font-size:15px;color:var(--suave);line-height:1.7;max-width:600px;margin-bottom:40px}
+
+/* NOSOTROS */
+.nos-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+.nos-txt p{font-size:14px;color:var(--suave);line-height:1.8;margin-bottom:16px}
+.nos-txt strong{color:var(--texto)}
+.eq-grid{display:flex;flex-direction:column;gap:12px}
+.eq-card{background:var(--card);border:1px solid var(--borde);border-radius:14px;padding:18px;display:flex;align-items:center;gap:14px;backdrop-filter:blur(10px);transition:all .2s}
+.eq-card:hover{border-color:var(--azul);transform:translateX(3px)}
+.eq-av{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.eq-info h4{font-size:14px;font-weight:600;margin-bottom:3px}
+.eq-info p{font-size:11px;color:var(--suave);line-height:1.4}
+.eq-info span{font-size:10px;color:var(--verde);font-weight:500}
+
+/* OFRECEMOS */
+.of-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:40px}
+.of-card{background:var(--card);border:1px solid var(--borde);border-radius:18px;padding:28px;backdrop-filter:blur(10px);transition:all .25s;position:relative;overflow:hidden}
+.of-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--of-c),transparent);opacity:0;transition:opacity .3s}
+.of-card:hover{transform:translateY(-4px);border-color:var(--of-c)}
+.of-card:hover::after{opacity:1}
+.of-icon{font-size:32px;margin-bottom:16px}
+.of-tit{font-size:16px;font-weight:700;margin-bottom:8px}
+.of-desc{font-size:13px;color:var(--suave);line-height:1.65;margin-bottom:14px}
+.of-list{list-style:none}
+.of-list li{font-size:12px;color:var(--suave);padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:7px}
+.of-list li::before{content:'✓';color:var(--of-c);font-weight:700;flex-shrink:0}
+.of-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:50px;margin-top:12px}
+
+/* SEÑALES */
+.sen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:40px}
+.sen-card{background:var(--card);border:1px solid var(--borde);border-radius:16px;padding:24px;backdrop-filter:blur(10px);border-left:3px solid var(--sc)}
+.sen-hdr{display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.sen-dot{width:8px;height:8px;border-radius:50%;background:var(--sc);box-shadow:0 0 8px var(--sc)}
+.sen-tit{font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--sc)}
+.sen-list{list-style:none}
+.sen-list li{font-size:12px;color:var(--suave);padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:7px;line-height:1.4}
+.sen-list li::before{content:'→';color:var(--azul);font-size:11px;flex-shrink:0;margin-top:1px}
+
+/* TALLERES */
+.tal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:40px}
+.tal-card{background:var(--card);border:1px solid var(--borde);border-radius:18px;padding:26px;backdrop-filter:blur(10px);transition:all .25s}
+.tal-card:hover{transform:translateY(-3px);border-color:var(--vio)}
+.tal-para{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--vio);margin-bottom:8px}
+.tal-tit{font-size:16px;font-weight:700;margin-bottom:8px}
+.tal-desc{font-size:12px;color:var(--suave);line-height:1.6;margin-bottom:14px}
+.tal-tags{display:flex;flex-wrap:wrap;gap:5px}
+.ttag{font-size:10px;padding:3px 9px;border-radius:50px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2);color:var(--vio)}
+.tal-btn{margin-top:14px;width:100%;background:transparent;border:1px solid var(--vio);color:var(--vio);padding:9px;border-radius:9px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+.tal-btn:hover{background:var(--vio);color:#fff}
+
+/* CASOS */
+.cas-list{display:flex;flex-direction:column;gap:16px;margin-top:40px}
+.cas-card{background:var(--card);border:1px solid var(--borde);border-radius:16px;padding:24px;backdrop-filter:blur(10px)}
+.cas-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.cas-tit{font-size:16px;font-weight:700}
+.cas-badge{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:50px}
+.cas-badge.a{background:rgba(239,68,68,.1);color:var(--rojo);border:1px solid rgba(239,68,68,.2)}
+.cas-badge.v{background:rgba(16,185,129,.1);color:var(--verde);border:1px solid rgba(16,185,129,.2)}
+.cas-txt{font-size:13px;color:var(--suave);line-height:1.75}
+.cas-apr{margin-top:12px;padding:11px 14px;background:rgba(59,130,246,0.07);border-radius:9px;border-left:2px solid var(--azul);font-size:12px;color:var(--azul);line-height:1.5}
+
+/* IA DEEPFAKES */
+.ia-alert{background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.22);border-radius:14px;padding:22px 26px;margin-bottom:36px;display:flex;align-items:flex-start;gap:14px}
+.ia-alert h4{font-size:15px;font-weight:700;color:var(--rojo);margin-bottom:5px}
+.ia-alert p{font-size:13px;color:var(--suave);line-height:1.7}
+.ia-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:28px 0}
+.ia-stat{background:var(--card);border:1px solid rgba(239,68,68,0.18);border-radius:12px;padding:18px;text-align:center}
+.ia-num{font-family:'Playfair Display',serif;font-size:36px;color:var(--rojo);line-height:1;margin-bottom:6px}
+.ia-lbl{font-size:11px;color:var(--suave);line-height:1.4}
+.ia-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:28px 0}
+.ia-card{background:var(--card);border:1px solid var(--borde);border-radius:16px;padding:24px;backdrop-filter:blur(10px);border-left:3px solid var(--ic)}
+.ia-ctag{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ic);margin-bottom:8px;display:block}
+.ia-card h4{font-size:15px;font-weight:700;margin-bottom:8px}
+.ia-card p{font-size:12px;color:var(--suave);line-height:1.65;margin-bottom:10px}
+.ia-caso{background:rgba(255,255,255,0.03);border-radius:9px;padding:10px 13px;font-size:11px;color:var(--suave);line-height:1.5;border-left:2px solid var(--ic)}
+.ia-caso strong{color:var(--ic);font-size:10px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px;font-style:normal}
+
+/* PREVENCIÓN */
+.prev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:36px}
+.prev-card{background:var(--card);border:1px solid var(--borde);border-radius:16px;padding:24px;backdrop-filter:blur(10px);transition:all .2s}
+.prev-card:hover{transform:translateY(-3px);border-color:var(--verde)}
+.prev-n{font-family:'Playfair Display',serif;font-size:44px;color:rgba(16,185,129,0.15);line-height:1;margin-bottom:10px}
+.prev-tit{font-size:15px;font-weight:700;margin-bottom:8px}
+.prev-desc{font-size:12px;color:var(--suave);line-height:1.65;margin-bottom:10px}
+.prev-ev{font-size:11px;color:var(--verde);font-style:italic;display:flex;align-items:flex-start;gap:5px}
+.prev-ev::before{content:'📊';font-style:normal;flex-shrink:0}
+
+/* RECURSOS */
+.rec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:36px}
+.rec-card{background:var(--card);border:1px solid var(--borde);border-radius:16px;padding:22px;backdrop-filter:blur(10px);transition:all .2s}
+.rec-card:hover{border-color:var(--verde);transform:translateY(-2px)}
+.rec-icon{font-size:26px;margin-bottom:12px}
+.rec-tit{font-size:14px;font-weight:700;margin-bottom:6px}
+.rec-desc{font-size:12px;color:var(--suave);line-height:1.6;margin-bottom:12px}
+.rec-link{font-size:11px;font-weight:600;color:var(--verde);text-decoration:none}
+
+/* CONTACTO */
+.con-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+.emer-box{background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.18);border-radius:14px;padding:20px;margin-bottom:24px}
+.emer-box h4{font-size:12px;font-weight:700;color:var(--rojo);margin-bottom:12px;letter-spacing:.5px}
+.emer-it{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.emer-it:last-child{border:none}
+.emer-num{font-size:16px;font-weight:700}
+.emer-lbl{font-size:11px;color:var(--suave)}
+.form-card{background:var(--card);border:1px solid var(--borde);border-radius:18px;padding:28px;backdrop-filter:blur(10px)}
+.form-card h4{font-size:16px;font-weight:700;margin-bottom:5px}
+.form-card>p{font-size:12px;color:var(--suave);margin-bottom:20px}
+.fg{margin-bottom:14px}
+.fl{font-size:11px;font-weight:600;color:var(--suave);letter-spacing:.5px;display:block;margin-bottom:5px;text-transform:uppercase}
+.fi{width:100%;background:rgba(8,12,24,0.8);border:1px solid var(--borde);border-radius:9px;padding:10px 13px;color:var(--texto);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;outline:none;transition:border-color .2s}
+.fi:focus{border-color:var(--azul)}
+.fi::placeholder{color:var(--suave)}
+textarea.fi{height:90px;resize:vertical}
+.fb{width:100%;background:linear-gradient(135deg,var(--azul),var(--azs));color:#fff;border:none;padding:13px;border-radius:11px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;margin-top:4px}
+.fb:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(59,130,246,0.3)}
+.form-ok{display:none;text-align:center;padding:18px;color:var(--verde);font-weight:600}
+
+/* FOOTER */
+footer{padding:44px 5% 28px;border-top:1px solid var(--borde)}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:36px;margin-bottom:36px}
+.ft-brand h3{font-family:'Playfair Display',serif;font-size:18px;letter-spacing:2px;margin-bottom:8px}
+.ft-brand p{font-size:12px;color:var(--suave);line-height:1.7;max-width:260px}
+.ft-col h5{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--suave);margin-bottom:12px}
+.ft-col a{display:block;font-size:12px;color:var(--suave);margin-bottom:7px;cursor:pointer;transition:color .2s;text-decoration:none}
+.ft-col a:hover{color:var(--texto)}
+.ft-bot{display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid var(--borde);font-size:11px;color:var(--suave);flex-wrap:wrap;gap:8px}
+
+/* BOT FLOTANTE */
+#fabBtn{position:fixed;bottom:22px;right:22px;z-index:998;background:linear-gradient(135deg,var(--azul),var(--azs));color:#fff;border:none;border-radius:50px;padding:13px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 8px 24px rgba(59,130,246,0.4);display:flex;align-items:center;gap:7px;transition:all .3s;animation:fabIn .5s ease}
+#fabBtn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(59,130,246,0.5)}
+@keyframes fabIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+#overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:999;backdrop-filter:blur(3px)}
+#botPanel{display:none;position:fixed;bottom:0;right:0;width:400px;max-width:100vw;height:88vh;z-index:1000;flex-direction:column;background:#080c18;border:1px solid rgba(59,130,246,0.2);border-radius:18px 18px 0 0;box-shadow:0 -8px 40px rgba(0,0,0,0.5);overflow:hidden}
+.bp-head{padding:13px 16px;background:rgba(8,12,24,0.98);border-bottom:1px solid var(--borde);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.bp-logo{display:flex;align-items:center;gap:9px}
+.bp-av{width:32px;height:32px;background:linear-gradient(135deg,var(--azul),var(--verde));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.bp-info h5{font-size:13px;font-weight:700;letter-spacing:1px;font-family:'Playfair Display',serif}
+.bp-info p{font-size:10px;color:var(--verde);display:flex;align-items:center;gap:3px}
+.bp-dot{width:5px;height:5px;background:var(--verde);border-radius:50%;animation:pu 2s infinite}
+@keyframes pu{0%,100%{opacity:1}50%{opacity:.3}}
+.bp-close{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+.bp-quick{padding:7px 11px;border-bottom:1px solid var(--borde);display:flex;flex-wrap:wrap;gap:5px;flex-shrink:0;background:rgba(8,12,24,0.6)}
+.qb{background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.17);border-radius:50px;padding:4px 10px;font-size:10px;color:var(--azul);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:background .2s}
+.qb:hover{background:rgba(59,130,246,0.18)}
+.bp-msgs{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:10px}
+.bp-msgs::-webkit-scrollbar{width:3px}
+.bp-msgs::-webkit-scrollbar-thumb{background:rgba(59,130,246,0.2);border-radius:2px}
+.bm{max-width:84%;animation:mi .3s ease}
+@keyframes mi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.bm.bot{align-self:flex-start}.bm.usr{align-self:flex-end}
+.bb{padding:10px 13px;border-radius:13px;font-size:13px;line-height:1.6}
+.bm.bot .bb{background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.18);border-bottom-left-radius:3px}
+.bm.usr .bb{background:linear-gradient(135deg,var(--azul),var(--azs));color:#fff;border-bottom-right-radius:3px}
+.bt{font-size:10px;color:#475569;margin-top:2px;padding:0 2px}
+.bm.usr .bt{text-align:right}
+.rb-bajo{border-left:3px solid var(--verde)!important}
+.rb-med{border-left:3px solid var(--ama)!important}
+.rb-alto{border-left:3px solid var(--rojo)!important}
+.rb-crit{border-left:3px solid var(--rojo)!important;background:rgba(239,68,68,0.08)!important}
+.btyp{display:flex;gap:3px;padding:10px 13px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.18);border-radius:13px;border-bottom-left-radius:3px;width:fit-content;align-self:flex-start}
+.bd{width:5px;height:5px;background:var(--azul);border-radius:50%;animation:td 1.2s infinite}
+.bd:nth-child(2){animation-delay:.2s}.bd:nth-child(3){animation-delay:.4s}
+@keyframes td{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.bp-inp{padding:9px 11px;border-top:1px solid var(--borde);display:flex;gap:7px;align-items:flex-end;background:rgba(8,12,24,0.98);flex-shrink:0}
+#bInp{flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--borde);border-radius:10px;padding:9px 13px;color:var(--texto);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;outline:none;resize:none;height:40px;max-height:100px;transition:border-color .2s}
+#bInp:focus{border-color:var(--azul)}
+#bInp::placeholder{color:var(--suave)}
+#bSend{background:linear-gradient(135deg,var(--azul),var(--azs));border:none;border-radius:10px;width:40px;height:40px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+#bSend:hover{transform:scale(1.05)}
+#bSend:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.bp-emer{padding:6px 11px;background:rgba(239,68,68,0.05);border-top:1px solid rgba(239,68,68,0.1);display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;flex-shrink:0}
+.bp-emer span{font-size:10px;color:var(--rojo);font-weight:600}
+.bp-emer a{font-size:10px;color:var(--suave);text-decoration:none}
+
+@media(max-width:768px){.nos-grid,.con-grid,.ft-grid{grid-template-columns:1fr}.nav-links{display:none}.stats-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){#botPanel{width:100%;height:92vh;border-radius:16px 16px 0 0}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo" onclick="ir('hero')">
+    <div class="nav-logo-icon">🛡️</div>
+    <div><h1>GUARDIÁN</h1><span>Red de Protección Digital</span></div>
+  </div>
+  <div class="nav-links">
+    <a onclick="ir('nosotros')">Nosotros</a>
+    <a onclick="ir('ofrecemos')">Qué ofrecemos</a>
+    <a onclick="ir('senales')">Señales</a>
+    <a onclick="ir('talleres')">Talleres</a>
+    <a onclick="ir('ia-df')">IA & Deepfakes</a>
+    <a onclick="ir('recursos')">Recursos</a>
+    <a onclick="ir('contacto')">Contacto</a>
+  </div>
+  <button class="nav-cta" onclick="ir('contacto')">Solicitar taller →</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-badge">🇦🇷 Iniciativa argentina · Gratuita para la comunidad</div>
+  <h2>Protegemos a tus hijos<br>del <em>grooming</em> digital</h2>
+  <p>Somos un equipo de estudiantes de Psicología Social que combinamos formación académica, inteligencia artificial y talleres presenciales para proteger a los adolescentes argentinos.</p>
+  <div class="hero-btns">
+    <button class="btn-p" onclick="abrirBot()">💬 Hablar con GUARDIÁN</button>
+    <button class="btn-s" onclick="ir('talleres')">📋 Ver nuestros talleres</button>
+  </div>
+  <div class="stats-row">
+    <div class="stat-it fade-in"><div class="stat-n">1 de 4</div><div class="stat-l">menores argentinos recibió solicitudes de fotos íntimas online</div></div>
+    <div class="stat-it fade-in"><div class="stat-n">55%</div><div class="stat-l">de los menores no sabe qué es el grooming</div></div>
+    <div class="stat-it fade-in"><div class="stat-n">267%</div><div class="stat-l">aumentan los casos en verano por mayor uso de pantallas</div></div>
+    <div class="stat-it fade-in"><div class="stat-n">Art.131</div><div class="stat-l">Código Penal Argentino tipifica el grooming desde 2013</div></div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros" class="sec">
+  <div class="nos-grid">
+    <div class="nos-txt fade-in">
+      <div class="tag">Quiénes somos</div>
+      <h2 class="tit">Tres estudiantes con una <em>causa común</em></h2>
+      <p>Somos Jimena, Mónica y Jorge, estudiantes de la <strong>Escuela de Psicología Social del Sur</strong>. Durante nuestra formación analizamos en profundidad la problemática del grooming digital y su impacto en familias de adolescentes de 12 a 17 años.</p>
+      <p>Lo que empezó como un trabajo de investigación se convirtió en una convicción: <strong>la información existe pero no llega a quien la necesita</strong>. Los padres no saben cómo proteger a sus hijos. Las escuelas no tienen herramientas.</p>
+      <p>Por eso creamos <strong>Red GUARDIÁN</strong>: tecnología, educación y acompañamiento para construir una red de protección real.</p>
+    </div>
+    <div class="eq-grid fade-in">
+      <div class="eq-card">
+        <div class="eq-av" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6)">👩</div>
+        <div class="eq-info"><h4>Jimena</h4><p>Psicología Social · Vínculos y adolescencia</p><span>✦ Coordinadora de talleres</span></div>
+      </div>
+      <div class="eq-card">
+        <div class="eq-av" style="background:linear-gradient(135deg,#ec4899,#f59e0b)">👩</div>
+        <div class="eq-info"><h4>Mónica</h4><p>Psicología Social · Comunicación familiar y prevención</p><span>✦ Contenidos y comunicación</span></div>
+      </div>
+      <div class="eq-card">
+        <div class="eq-av" style="background:linear-gradient(135deg,#10b981,#3b82f6)">👨</div>
+        <div class="eq-info"><h4>Jorge</h4><p>Psicología Social · Investigación y herramientas digitales</p><span>✦ Desarrollo e investigación</span></div>
+      </div>
+      <div class="eq-card" style="border-color:rgba(16,185,129,0.3)">
+        <div class="eq-av" style="background:rgba(16,185,129,0.15)">🎓</div>
+        <div class="eq-info"><h4>Escuela de Psicología Social del Sur</h4><p>Marco teórico ECRO · Investigación · Psicología de las Organizaciones</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFRECEMOS -->
+<section id="ofrecemos" class="sec-alt">
+  <div class="tag">Nuestras propuestas</div>
+  <h2 class="tit">Todo lo que <em>ofrecemos</em></h2>
+  <p class="sub">Un ecosistema completo de protección: tecnología, educación y acompañamiento. Gratis para la comunidad.</p>
+  <div class="of-grid">
+    <div class="of-card fade-in" style="--of-c:#3b82f6">
+      <div class="of-icon">🤖</div><div class="of-tit">Asistente IA GUARDIÁN</div>
+      <div class="of-desc">Asistente conversacional 24hs, en español rioplatense, especializado en grooming y diseñado para padres que necesitan orientación urgente.</div>
+      <ul class="of-list"><li>Análisis de conversaciones sospechosas</li><li>Detección de identidad falsa</li><li>Nivel de riesgo con semáforo</li><li>Guía legal argentina paso a paso</li></ul>
+      <span class="of-tag" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2)">Disponible ahora · Gratuito</span>
+    </div>
+    <div class="of-card fade-in" style="--of-c:#8b5cf6">
+      <div class="of-icon">🏫</div><div class="of-tit">Talleres en escuelas</div>
+      <div class="of-desc">Jornadas presenciales para estudiantes, docentes y familias, adaptadas por nivel y con material didáctico incluido.</div>
+      <ul class="of-list"><li>Taller para alumnos secundarios</li><li>Capacitación docente con protocolo</li><li>Jornada para padres y familias</li><li>Certificado de participación</li></ul>
+      <span class="of-tag" style="background:rgba(139,92,246,0.1);color:#8b5cf6;border:1px solid rgba(139,92,246,0.2)">Solicitá tu fecha</span>
+    </div>
+    <div class="of-card fade-in" style="--of-c:#10b981">
+      <div class="of-icon">👨‍👩‍👧</div><div class="of-tit">Acompañamiento a familias</div>
+      <div class="of-desc">Orientación personalizada para familias que enfrentan o sospechan una situación de grooming, con derivación a recursos profesionales.</div>
+      <ul class="of-list"><li>Consulta inicial gratuita</li><li>Orientación para preservar evidencia</li><li>Acompañamiento en la denuncia</li><li>Red de derivación profesional</li></ul>
+      <span class="of-tag" style="background:rgba(16,185,129,0.1);color:#10b981;border:1px solid rgba(16,185,129,0.2)">Confidencial · Sin costo</span>
+    </div>
+    <div class="of-card fade-in" style="--of-c:#f59e0b">
+      <div class="of-icon">📚</div><div class="of-tit">Recursos educativos</div>
+      <div class="of-desc">Materiales descargables para docentes, padres y adolescentes: guías, infografías y protocolos de actuación.</div>
+      <ul class="of-list"><li>Guía para padres "Señales de alerta"</li><li>Protocolo escolar ante grooming</li><li>Infografías para redes sociales</li><li>Guía legal argentina 2026</li></ul>
+      <span class="of-tag" style="background:rgba(245,158,11,0.1);color:#f59e0b;border:1px solid rgba(245,158,11,0.2)">Descarga gratuita</span>
+    </div>
+    <div class="of-card fade-in" style="--of-c:#ec4899">
+      <div class="of-icon">📣</div><div class="of-tit">Campañas de concientización</div>
+      <div class="of-desc">Contenidos para redes sociales, campañas en instituciones y materiales para multiplicar el impacto en la comunidad.</div>
+      <ul class="of-list"><li>Kit de contenidos para redes</li><li>Charlas en clubes y bibliotecas</li><li>Capacitación a voluntarios</li><li>Alianzas con municipios y ONGs</li></ul>
+      <span class="of-tag" style="background:rgba(236,72,153,0.1);color:#ec4899;border:1px solid rgba(236,72,153,0.2)">Campaña activa</span>
+    </div>
+    <div class="of-card fade-in" style="--of-c:#06b6d4">
+      <div class="of-icon">⚖️</div><div class="of-tit">Marco legal argentino</div>
+      <div class="of-desc">Información actualizada sobre derechos de las víctimas, proceso de denuncia y organismos especializados en Argentina.</div>
+      <ul class="of-list"><li>Art. 131 CP · Ley 26.904</li><li>Cómo denunciar en UFECI</li><li>División Delitos Tecnológicos PFA</li><li>Líneas de emergencia por provincia</li></ul>
+      <span class="of-tag" style="background:rgba(6,182,212,0.1);color:#06b6d4;border:1px solid rgba(6,182,212,0.2)">Actualizado 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- SEÑALES -->
+<section id="senales" class="sec">
+  <div class="tag">Aprendé a reconocerlas</div>
+  <h2 class="tit">Señales de <em>alerta</em></h2>
+  <p class="sub">El grooming tiene un patrón documentado. Conocerlo es la primera herramienta de protección.</p>
+  <div class="sen-grid">
+    <div class="sen-card fade-in" style="--sc:#ef4444">
+      <div class="sen-hdr"><div class="sen-dot"></div><div class="sen-tit">🚨 Señales en tu hijo/a</div></div>
+      <ul class="sen-list">
+        <li>Cambia bruscamente de humor después de usar el celular</li>
+        <li>Cierra la pantalla cuando te acercás</li>
+        <li>Recibe regalos o dinero de personas desconocidas</li>
+        <li>Habla de un "amigo nuevo" que nadie conoce en persona</li>
+        <li>Se aleja de amigos reales y familia</li>
+        <li>Se levanta de noche a usar el dispositivo</li>
+        <li>Muestra ansiedad o miedo al hablar de sus redes</li>
+      </ul>
+    </div>
+    <div class="sen-card fade-in" style="--sc:#f59e0b">
+      <div class="sen-hdr"><div class="sen-dot"></div><div class="sen-tit">⚠️ El victimario se delata</div></div>
+      <ul class="sen-list">
+        <li>Vocabulario demasiado formal para la edad que dice tener</li>
+        <li>Puntuación correcta y consistente (inusual en adolescentes)</li>
+        <li>Propone migrar a apps privadas muy rápido</li>
+        <li>Pide secreto desde las primeras conversaciones</li>
+        <li>Se conecta después de las 22hs en días de semana</li>
+        <li>Nunca menciona tarea, materias ni compañeros reales</li>
+        <li>Frases documentadas: "sos madura para tu edad"</li>
+      </ul>
+    </div>
+    <div class="sen-card fade-in" style="--sc:#10b981">
+      <div class="sen-hdr"><div class="sen-dot"></div><div class="sen-tit">✅ Las 5 etapas del grooming</div></div>
+      <ul class="sen-list">
+        <li><strong style="color:var(--texto)">1. Selección</strong> — estudia la huella digital de la víctima</li>
+        <li><strong style="color:var(--texto)">2. Acercamiento</strong> — cumplidos, intereses compartidos</li>
+        <li><strong style="color:var(--texto)">3. Confianza</strong> — vínculo emocional, "sos especial"</li>
+        <li><strong style="color:var(--texto)">4. Aislamiento</strong> — "tus padres no entienden", secreto</li>
+        <li><strong style="color:var(--texto)">5. Sexualización</strong> — gradual, alterna con temas normales</li>
+        <li><strong style="color:var(--texto)">6. Sometimiento</strong> — extorsión con material obtenido</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TALLERES -->
+<section id="talleres" class="sec-alt">
+  <div class="tag">Acción presencial</div>
+  <h2 class="tit">Nuestros <em>talleres</em></h2>
+  <p class="sub">Llevamos la prevención a donde están los adolescentes. Gratis para instituciones públicas.</p>
+  <div class="tal-grid">
+    <div class="tal-card fade-in">
+      <div class="tal-para">Para adolescentes · 12 a 17 años</div>
+      <div class="tal-tit">Internet Seguro: Conocé tus derechos</div>
+      <div class="tal-desc">Taller lúdico e interactivo que enseña a identificar comportamientos sospechosos y saber qué hacer si algo incomoda.</div>
+      <div class="tal-tags"><span class="ttag">2 horas</span><span class="ttag">Presencial</span><span class="ttag">Secundaria</span></div>
+      <button class="tal-btn" onclick="ir('contacto')">Solicitar este taller</button>
+    </div>
+    <div class="tal-card fade-in">
+      <div class="tal-para">Para padres y familias</div>
+      <div class="tal-tit">Crianza Digital: Cómo proteger a tu hijo/a</div>
+      <div class="tal-desc">Herramientas concretas: cómo hablar con sus hijos, qué apps monitorear y cómo actuar ante una sospecha.</div>
+      <div class="tal-tags"><span class="ttag">3 horas</span><span class="ttag">Participativo</span><span class="ttag">Todas las edades</span></div>
+      <button class="tal-btn" onclick="ir('contacto')">Solicitar este taller</button>
+    </div>
+    <div class="tal-card fade-in">
+      <div class="tal-para">Para docentes y preceptores</div>
+      <div class="tal-tit">Protocolo escolar ante el grooming</div>
+      <div class="tal-desc">Cómo detectar señales, abordar una revelación, responsabilidades legales del docente y protocolo de actuación.</div>
+      <div class="tal-tags"><span class="ttag">4 horas</span><span class="ttag">Con certificado</span><span class="ttag">Marco legal</span></div>
+      <button class="tal-btn" onclick="ir('contacto')">Solicitar este taller</button>
+    </div>
+    <div class="tal-card fade-in">
+      <div class="tal-para">Para comunidades y clubes</div>
+      <div class="tal-tit">Charla comunitaria de prevención</div>
+      <div class="tal-desc">Charla abierta y accesible para cualquier grupo comunitario: clubes, bibliotecas, centros de fomento.</div>
+      <div class="tal-tags"><span class="ttag">90 minutos</span><span class="ttag">Abierto al público</span></div>
+      <button class="tal-btn" onclick="ir('contacto')">Solicitar este taller</button>
+    </div>
+  </div>
+</section>
+
+<!-- CASOS -->
+<section id="casos" class="sec">
+  <div class="tag">Para aprender de la realidad</div>
+  <h2 class="tit">Casos que <em>enseñan</em></h2>
+  <p class="sub">Situaciones reales (datos anonimizados) que ilustran cómo opera el grooming.</p>
+  <div class="cas-list">
+    <div class="cas-card fade-in">
+      <div class="cas-hdr"><div class="cas-tit">El "compañero de clase" que nadie conocía</div><span class="cas-badge a">Caso real</span></div>
+      <div class="cas-txt">Una niña de 13 años recibió solicitud de amistad de alguien que decía conocerla del colegio usando fotos robadas. En tres semanas escaló las conversaciones a pedidos de fotos íntimas. La niña nunca lo mencionó por vergüenza. La madre lo descubrió por accidente.</div>
+      <div class="cas-apr">💡 La vergüenza silencia a las víctimas. El canal de confianza padre-hijo/a es la primera línea de defensa.</div>
+    </div>
+    <div class="cas-card fade-in">
+      <div class="cas-hdr"><div class="cas-tit">El "gamer amigable" en Fortnite</div><span class="cas-badge a">Caso real</span></div>
+      <div class="cas-txt">Un chico de 14 años conoció a alguien en un videojuego que decía tener 15 años y le regalaba créditos. Pasaron a WhatsApp. Era un adulto de 34 años detectado cuando el padre notó recargas de gift cards sin explicación.</div>
+      <div class="cas-apr">💡 Los videojuegos son un vector frecuente. Los regalos digitales son señal de alarma clara.</div>
+    </div>
+    <div class="cas-card fade-in">
+      <div class="cas-hdr"><div class="cas-tit">La familia que habló a tiempo</div><span class="cas-badge v">Prevención exitosa</span></div>
+      <div class="cas-txt">Una adolescente de 15 años contó que alguien le pedía fotos "para un concurso de modelos". La madre escuchó sin enojo. Juntas detectaron inconsistencias en el perfil y reportaron. El caso llegó a la Unidad Fiscal Especializada.</div>
+      <div class="cas-apr">💡 La reacción sin juicio fue clave. La adolescente buscó ayuda porque sabía que no sería castigada.</div>
+    </div>
+  </div>
+</section>
+
+<!-- IA Y DEEPFAKES -->
+<section id="ia-df" class="sec-alt">
+  <div class="tag" style="color:var(--rojo)">⚠️ La amenaza que nadie está explicando</div>
+  <h2 class="tit">Grooming + <em style="color:var(--rojo)">Inteligencia Artificial</em></h2>
+  <p class="sub">La nueva generación de riesgos digitales. Todo lo que sigue tiene fuente verificable.</p>
+  <div class="ia-alert">
+    <div style="font-size:28px;flex-shrink:0">🚨</div>
+    <div>
+      <h4>Esto ya está pasando en Argentina</h4>
+      <p>En junio 2025 un joven fue procesado en Córdoba por usar IA para crear imágenes sexuales falsas de 16 compañeras menores de 18 años descargando sus fotos de redes sociales. Las víctimas sufrieron PTSD, ansiedad y vergüenza prolongada. El caso llegó a juicio oral. No fue un caso aislado: Buenos Aires, Chaco, Río Negro y San Juan reportaron casos similares. (Fuente: Chequeado, junio 2025)</p>
+    </div>
+  </div>
+  <div class="ia-stats">
+    <div class="ia-stat"><div class="ia-num">260x</div><div class="ia-lbl">aumento en videos de abuso generados por IA en 2025 (Internet Watch Foundation 2026)</div></div>
+    <div class="ia-stat"><div class="ia-num">97%</div><div class="ia-lbl">del material IA de abuso representa a niñas (IWF 2026)</div></div>
+    <div class="ia-stat"><div class="ia-num">1.2M</div><div class="ia-lbl">menores afectados por deepfakes sexuales en 11 países (UNICEF/ECPAT/INTERPOL, feb 2026)</div></div>
+    <div class="ia-stat"><div class="ia-num">+1M</div><div class="ia-lbl">reportes vinculados a IA generativa en CyberTipline NCMEC (2025)</div></div>
+  </div>
+  <div class="ia-grid">
+    <div class="ia-card" style="--ic:#ef4444">
+      <span class="ia-ctag">Modalidad 1 — Nudificación digital</span>
+      <h4>Toman una foto y te desnudan con IA</h4>
+      <p>Apps accesibles convierten fotos de perfil en imágenes sexualizadas. Sin conocimiento técnico. La víctima no sabe que existe el material hasta que empieza la extorsión.</p>
+      <div class="ia-caso"><strong>Caso real — San Jerónimo Sud, Santa Fe 2025</strong>Un hombre de 48 años fue condenado por deepfakes de más de 80 mujeres incluyendo menores. (Fuente: keywordlegal.com)</div>
+    </div>
+    <div class="ia-card" style="--ic:#f59e0b">
+      <span class="ia-ctag">Modalidad 2 — Sextorsión con deepfake</span>
+      <h4>"Tengo un video tuyo. Pagá o lo muestro"</h4>
+      <p>El agresor genera un deepfake desde fotos públicas y amenaza con distribuirlo. El video es falso pero el daño es real. La víctima paga porque no puede probar que es falso.</p>
+      <div class="ia-caso"><strong>Caso real — Argentina 2026</strong>Amenaza de 200.000 pesos para no distribuir video falso generado desde fotos de Instagram. (Fuente: Agencia UNQ, marzo 2026)</div>
+    </div>
+    <div class="ia-card" style="--ic:#8b5cf6">
+      <span class="ia-ctag">Modalidad 3 — Grooming automatizado</span>
+      <h4>Ya no hay una persona del otro lado. Hay una IA</h4>
+      <p>Chatbots mantienen conversaciones con cientos de menores simultáneamente. La IA aprende los gustos del chico y escala exactamente como lo haría un groomer humano.</p>
+      <div class="ia-caso"><strong>Dato verificado — Europol IOCTA 2025</strong>"Los ciberdelincuentes usan IA para perfeccionar estrategias de grooming a escala industrial."</div>
+    </div>
+    <div class="ia-card" style="--ic:#06b6d4">
+      <span class="ia-ctag">Marco legal — El vacío en Argentina</span>
+      <h4>La ley argentina aún no llegó a esto</h4>
+      <p>No existe figura penal específica para deepfakes sexuales. Los fiscales deben argumentar "lesiones graves" por daño psicológico para procesar estos casos.</p>
+      <div class="ia-caso"><strong>Proyecto Art. 128 bis — marzo 2026</strong>Propone 3 a 6 años de prisión para deepfakes sexuales. Agravante si representa a menores. Aún sin aprobar. (Fuente: El Economista, 2026)</div>
+    </div>
+  </div>
+</section>
+
+<!-- PREVENCIÓN -->
+<section id="prevencion" class="sec">
+  <div class="tag">Basado en evidencia científica</div>
+  <h2 class="tit">Qué <em>realmente funciona</em> para prevenir</h2>
+  <p class="sub">No opiniones. Estrategias validadas por investigaciones con cientos de adolescentes.</p>
+  <div class="prev-grid">
+    <div class="prev-card fade-in"><div class="prev-n">01</div><div class="prev-tit">Intervenciones breves bien diseñadas</div><div class="prev-desc">Una hora bien diseñada reduce significativamente las interacciones de riesgo. El efecto se mantiene a los 3 y 6 meses de seguimiento.</div><div class="prev-ev">Estudio con 856 adolescentes. Gámez-Guadix et al., 2022. Psychosocial Intervention.</div></div>
+    <div class="prev-card fade-in"><div class="prev-n">02</div><div class="prev-tit">Inteligencia emocional como escudo</div><div class="prev-desc">Los groomers explotan vulnerabilidades emocionales. Adolescentes con mayor inteligencia emocional tienen menos conductas de riesgo.</div><div class="prev-ev">Estudio RELATEC 2022. 200 estudiantes de 14-16 años. Correlación directa IE y conductas de riesgo.</div></div>
+    <div class="prev-card fade-in"><div class="prev-n">03</div><div class="prev-tit">Hablar de sexualidad, no evitarla</div><div class="prev-desc">La prevención que ignora la sexualidad adolescente no funciona. Los programas eficaces aceptan que los chicos tienen curiosidad sexual.</div><div class="prev-ev">Fuente: Redalyc 2021. Análisis de sentencias reales de grooming en España.</div></div>
+    <div class="prev-card fade-in"><div class="prev-n">04</div><div class="prev-tit">Canal abierto familia-hijo/a</div><div class="prev-desc">La mayoría de los casos resueltos tienen un factor en común: el adolescente pudo contarlo sin miedo a ser castigado.</div><div class="prev-ev">Revisión sistemática SciELO 2025. Factor protector consistente en todos los estudios analizados.</div></div>
+    <div class="prev-card fade-in"><div class="prev-n">05</div><div class="prev-tit">Formación docente con protocolo</div><div class="prev-desc">Los docentes son frecuentemente los primeros adultos a quienes los chicos revelan. Sin protocolo claro, la respuesta improvisada puede empeorar el daño.</div><div class="prev-ev">SciELO 2025. Estrategia de alto impacto en el 80% de los estudios analizados.</div></div>
+    <div class="prev-card fade-in"><div class="prev-n">06</div><div class="prev-tit">Adaptación al contexto local</div><div class="prev-desc">La mayoría de los programas se diseñaron en Europa. Las estrategias necesitan adaptación cultural y socioeconómica al contexto argentino real.</div><div class="prev-ev">SciELO Venezuela 2025. "La falta de estudios latinoamericanos limita la efectividad de las estrategias."</div></div>
+  </div>
+</section>
+
+<!-- RECURSOS -->
+<section id="recursos" class="sec-alt">
+  <div class="tag">Herramientas y organismos</div>
+  <h2 class="tit">Recursos <em>útiles</em></h2>
+  <p class="sub">Todo lo que necesitás saber, en un solo lugar. Gratuito y con fuentes oficiales.</p>
+  <div class="rec-grid">
+    <div class="rec-card fade-in"><div class="rec-icon">📋</div><div class="rec-tit">Ley 26.904 — Art. 131 CP</div><div class="rec-desc">El grooming es delito en Argentina desde 2013. Penas de 6 meses a 4 años. Conocé tus derechos.</div><a class="rec-link" href="https://www.argentina.gob.ar/justicia/convosenlaweb" target="_blank">Ver marco legal →</a></div>
+    <div class="rec-card fade-in"><div class="rec-icon">🚔</div><div class="rec-tit">UFECI — Dónde denunciar</div><div class="rec-desc">Unidad Fiscal Especializada en Ciberdelincuencia. Sarmiento 663, 6° piso, CABA. Tel: (5411) 5071-0040.</div><a class="rec-link" href="https://www.mpf.gob.ar" target="_blank">Ver más →</a></div>
+    <div class="rec-card fade-in"><div class="rec-icon">🧭</div><div class="rec-tit">Grooming Argentina ONG</div><div class="rec-desc">Organización pionera desde 2014. Prevención, concientización y erradicación del grooming en todo el país.</div><a class="rec-link" href="https://groomingarg.org" target="_blank">Visitar sitio →</a></div>
+    <div class="rec-card fade-in"><div class="rec-icon">🇦🇷</div><div class="rec-tit">Guía oficial del Gobierno</div><div class="rec-desc">Guía actualizada en marzo 2026 para padres, familias y docentes del Ministerio de Justicia de la Nación.</div><a class="rec-link" href="https://www.argentina.gob.ar/justicia/convosenlaweb/situaciones/guia-para-padres-familias-y-docentes-grooming" target="_blank">Descargar →</a></div>
+    <div class="rec-card fade-in"><div class="rec-icon">📞</div><div class="rec-tit">Líneas de emergencia 24hs</div><div class="rec-desc"><strong style="color:var(--texto)">102</strong> Niñez · <strong style="color:var(--texto)">137</strong> Violencia · <strong style="color:var(--texto)">0800-222-1466</strong> SENAF · <strong style="color:var(--texto)">0800-222-1717</strong> Equipo Niños</div><span class="rec-link">Gratuitas · Todo el país</span></div>
+    <div class="rec-card fade-in"><div class="rec-icon">📱</div><div class="rec-tit">Controles parentales</div><div class="rec-desc">Google Family Link, Bark y Qustodio permiten monitoreo sin invadir privacidad. Bark usa IA para detectar patrones de grooming.</div><a class="rec-link" href="https://www.bark.us" target="_blank">Ver Bark →</a></div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" class="sec">
+  <div class="tag">Hablemos</div>
+  <h2 class="tit">Contacto y <em>talleres</em></h2>
+  <div class="con-grid">
+    <div class="fade-in">
+      <p style="font-size:14px;color:var(--suave);line-height:1.75;margin-bottom:24px">Si querés solicitar un taller para tu escuela, institución o comunidad, o necesitás orientación sobre una situación específica, escribinos. Respondemos en 24hs.</p>
+      <div class="emer-box">
+        <h4>🚨 Líneas de emergencia Argentina</h4>
+        <div class="emer-it"><div><div class="emer-num">102</div><div class="emer-lbl">Niñez y Adolescencia · 24hs</div></div></div>
+        <div class="emer-it"><div><div class="emer-num">137</div><div class="emer-lbl">Víctimas de Violencia · 24hs</div></div></div>
+        <div class="emer-it"><div><div class="emer-num">0800-222-1466</div><div class="emer-lbl">SENAF · Gratuito · 24hs</div></div></div>
+        <div class="emer-it"><div><div class="emer-num">0800-222-1717</div><div class="emer-lbl">Equipo Niños contra el Grooming</div></div></div>
+      </div>
+      <p style="font-size:13px;color:var(--suave);line-height:1.7">Instagram: <strong style="color:var(--texto)">@RedGuardian</strong> · Mail: <strong style="color:var(--texto)">hola@redguardian.com.ar</strong></p>
+    </div>
+    <div class="form-card fade-in">
+      <h4>Solicitar un taller o consulta</h4>
+      <p>Completá el formulario y nos contactamos.</p>
+      <div id="formOk" class="form-ok">✅ ¡Mensaje enviado! Te respondemos en las próximas 24hs.</div>
+      <div id="formCampos">
+        <div class="fg"><label class="fl">Nombre y apellido</label><input type="text" class="fi" placeholder="Tu nombre completo" /></div>
+        <div class="fg"><label class="fl">Institución (si aplica)</label><input type="text" class="fi" placeholder="Escuela, club, organización..." /></div>
+        <div class="fg"><label class="fl">Email de contacto</label><input type="email" class="fi" placeholder="tu@email.com" /></div>
+        <div class="fg"><label class="fl">¿Qué necesitás?</label>
+          <select class="fi"><option value="">Seleccioná una opción</option><option>Taller para adolescentes</option><option>Taller para padres y familias</option><option>Capacitación docente</option><option>Charla comunitaria</option><option>Orientación sobre un caso</option><option>Otro</option></select>
+        </div>
+        <div class="fg"><label class="fl">Contanos más</label><textarea class="fi" placeholder="Descripción, cantidad de personas, fecha tentativa..."></textarea></div>
+        <button class="fb" onclick="enviarForm()">Enviar solicitud →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand"><h3>🛡️ GUARDIÁN</h3><p>Red de Protección contra el Grooming Digital. Una iniciativa de estudiantes de Psicología Social comprometidos con la protección de los adolescentes argentinos.</p></div>
+    <div class="ft-col"><h5>El sitio</h5><a onclick="ir('nosotros')">Quiénes somos</a><a onclick="ir('ofrecemos')">Qué ofrecemos</a><a onclick="ir('senales')">Señales de alerta</a><a onclick="ir('talleres')">Talleres</a><a onclick="ir('ia-df')">IA & Deepfakes</a><a onclick="ir('recursos')">Recursos</a></div>
+    <div class="ft-col"><h5>Ayuda urgente</h5><a>📞 102 — Niñez</a><a>📞 137 — Violencia</a><a>📞 0800-222-1466</a><a>📞 0800-222-1717</a><a href="https://groomingarg.org" target="_blank">ONG Grooming Argentina</a></div>
+  </div>
+  <div class="ft-bot">
+    <span>© 2026 Red GUARDIÁN · Jimena, Mónica y Jorge · Escuela de Psicología Social del Sur</span>
+    <span>Hecho con 💙 para proteger a los adolescentes argentinos</span>
+  </div>
+</footer>
+
+<!-- BOT FLOTANTE -->
+<div id="overlay" onclick="cerrarBot()"></div>
+<div id="botPanel">
+  <div class="bp-head">
+    <div class="bp-logo">
+      <div class="bp-av">🛡️</div>
+      <div class="bp-info">
+        <h5>GUARDIÁN</h5>
+        <p><div class="bp-dot"></div>En línea · Sin costo</p>
+      </div>
+    </div>
+    <button class="bp-close" onclick="cerrarBot()">✕</button>
+  </div>
+  <div class="bp-quick" id="bQuick">
+    <button class="qb" onclick="bRapido('¿Qué es el grooming y cómo funciona?')">¿Qué es?</button>
+    <button class="qb" onclick="bRapido('¿Cuáles son las señales de alarma en mi hijo/a?')">Señales</button>
+    <button class="qb" onclick="bRapido('¿Cómo sé si quien habla con mi hijo es un adulto disfrazado de menor?')">¿Adulto disfrazado?</button>
+    <button class="qb" onclick="bRapido('¿Cómo hablo con mi hijo/a sin que se cierre?')">Hablar con mi hijo/a</button>
+    <button class="qb" onclick="bRapido('¿Cómo denuncio en Argentina paso a paso?')">Denunciar</button>
+    <button class="qb" onclick="bRapido('¿Qué son los deepfakes y cómo afectan a menores?')">Deepfakes</button>
+  </div>
+  <div class="bp-msgs" id="bMsgs">
+    <div class="bm bot">
+      <div class="bb">Hola, soy <strong>GUARDIÁN</strong>. Estoy acá para orientarte sobre grooming digital.<br><br>Podés contarme qué te preocupa, <strong>pegar una conversación sospechosa</strong>, o hacerme cualquier pregunta. Todo confidencial y sin juicios.<br><br>¿Por dónde empezamos?</div>
+      <div class="bt">Ahora</div>
+    </div>
+  </div>
+  <div class="bp-inp">
+    <textarea id="bInp" placeholder="Escribí o pegá una conversación..." onkeydown="bTecla(event)" oninput="bAutoH(this)"></textarea>
+    <button id="bSend" onclick="bEnviar()">
+      <svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+  <div class="bp-emer">
+    <span>🚨</span>
+    <a href="tel:102">📞 102</a>
+    <a href="tel:137">📞 137</a>
+    <a href="tel:08002221466">📞 0800-222-1466</a>
+    <a href="tel:08002221717">📞 0800-222-1717</a>
+  </div>
+</div>
+
+<button id="fabBtn" onclick="abrirBot()">💬 GUARDIÁN</button>
+
+<script>
+const KB=`Sos GUARDIÁN, el asistente de protección contra grooming digital de Red GUARDIÁN Argentina. Base de conocimiento construida sobre evidencia científica: entrevistas a 12 groomers condenados (Psychosocial Intervention 2017), 107 conversaciones reales y 20 sentencias analizadas (Redalyc 2024), corpus lingüístico Ministerio Interior España 2024, 28.360 encuestas a menores (Grooming LATAM 2024-2025), UNICEF/Europol/IWF 2026.
+
+IDENTIDAD: Tono cálido, empático, sin juicios. Español rioplatense — "vos", "tu hijo/a", "acá". Nunca culpés al padre ni al hijo/a. Protocolo: 1)Contener 2)Analizar 3)Nivel de riesgo 4)Acción concreta. Siempre terminás con AL MENOS UNA acción que el padre puede hacer HOY.
+
+PERFIL VICTIMARIO: Masculino 95%+. Edad 18-49 años, media 35-39. 80% sin antecedentes. Hasta 61 víctimas simultáneas documentadas. Manipulador, paciente, adapta su identidad.
+
+MODUS OPERANDI 5 FASES: SELECCIÓN(estudia huella digital, busca vulnerabilidad) → ACERCAMIENTO(cumplidos específicos, "sos madura para tu edad", frases reales: "te quiero toda la vida cariño") → AISLAMIENTO("tus padres no entienden", secreto compartido) → SEXUALIZACIÓN(41% del discurso documentado, gradual, en niñas engaño/coacción, en niños corrupción con regalos) → SOMETIMIENTO(extorsión con material obtenido, genera culpa).
+
+SEÑALES LINGÜÍSTICAS ADULTO DISFRAZADO: Puntuación correcta y consistente. Vocabulario formal ("efectivamente","sin embargo"). Frases largas y complejas. Sin abreviaturas (pq,tmb,xq). Conexión después 22hs días hábiles. Nunca menciona tarea/materias/compañeros. Propone migrar a app privada en primeras interacciones = ALARMA MÁXIMA. Perfil reciente, pocas fotos, sin fotos grupales.
+
+PROTOCOLO ANÁLISIS CONVERSACIÓN: 1)Contener 2)Buscar señales grooming: secreto, cumplidos rápidos, preguntas íntimas, migrar a app privada, regalos, contenido sexual gradual, aislamiento 3)Buscar señales identidad falsa 4)Identificar etapa del proceso 5)Nivel: 🟢BAJO(sin señales claras) 🟡MEDIO(1-2 señales, monitoreo) 🔴ALTO(3+ señales, acción inmediata) 🚨CRÍTICO(extorsión o material sexual → denuncia AHORA) 6)Acciones concretas según nivel.
+
+DEEPFAKES 2026: Nudificación(fotos→imágenes sexuales sin conocimiento técnico). Sextorsión con video falso(caso Argentina 2026: amenaza $200k). Face-swapping escolar(Córdoba 2025: 16 menores, PTSD, juicio oral). Grooming automatizado(chatbots con cientos de víctimas). Estadísticas: 260x aumento videos IA abuso, 97% niñas(IWF 2026). Sin ley específica en Argentina aún.
+
+MARCO LEGAL: Art.131 CP, Ley 26.904(2013). UFECI: Sarmiento 663 6°piso CABA, (5411)5071-0040. Líneas 24hs: 102/137/0800-222-1466/0800-222-1717. Preservar evidencia: NO borrar nada, capturas con fecha/hora, NO bloquear antes de denunciar, NO confrontar al agresor.
+
+ESTADÍSTICAS: 1 de cada 4 menores argentinos recibió solicitudes de fotos íntimas. 55% no sabe qué es el grooming. Argentina 2° en Latinoamérica. Verano: +267% de casos. Solo 3.8% de padres asistió a un taller.
+
+INSTRUCCIÓN FINAL: Cada respuesta termina con acción concreta. Nunca dejés a alguien con miedo y sin saber qué hacer.`;
+
+let bHist=[], bOcup=false;
+
+function ir(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
+function abrirBot(){document.getElementById('botPanel').style.display='flex';document.getElementById('overlay').style.display='block';document.getElementById('fabBtn').style.display='none';setTimeout(()=>document.getElementById('bInp').focus(),300)}
+function cerrarBot(){document.getElementById('botPanel').style.display='none';document.getElementById('overlay').style.display='none';document.getElementById('fabBtn').style.display='flex'}
+function hora(){return new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})}
+
+function bAgreg(txt,rol){
+  const c=document.getElementById('bMsgs');
+  const d=document.createElement('div');
+  d.className=`bm ${rol}`;
+  let cls='';
+  if(rol==='bot'){
+    const t=txt.toUpperCase();
+    if(t.includes('CRÍTICO')||t.includes('🚨'))cls='rb-crit';
+    else if(t.includes('🔴')||t.includes(' ALTO'))cls='rb-alto';
+    else if(t.includes('🟡')||t.includes('MEDIO'))cls='rb-med';
+    else if(t.includes('🟢')||t.includes('BAJO'))cls='rb-bajo';
+  }
+  const fmt=txt.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  d.innerHTML=`<div class="bb ${cls}">${fmt}</div><div class="bt">${hora()}</div>`;
+  c.appendChild(d);
+  c.scrollTop=c.scrollHeight;
+}
+
+function bType(){
+  const c=document.getElementById('bMsgs');
+  const d=document.createElement('div');
+  d.id='bTyp';d.className='btyp';
+  d.innerHTML='<div class="bd"></div><div class="bd"></div><div class="bd"></div>';
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+function bUntype(){const e=document.getElementById('bTyp');if(e)e.remove()}
+
+async function bEnviar(){
+  const inp=document.getElementById('bInp');
+  const txt=inp.value.trim();
+  if(!txt||bOcup)return;
+  inp.value='';inp.style.height='40px';
+  bOcup=true;document.getElementById('bSend').disabled=true;
+  document.getElementById('bQuick').style.display='none';
+  bAgreg(txt,'usr');
+  bHist.push({role:'user',content:txt});
+  bType();
+  try{
+    const r=await fetch('/api/chat',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        
+        
+        
+      },
+      body:JSON.stringify({
+        model:'meta-llama/llama-3.3-70b-instruct:free',
+        max_tokens:1024,
+        messages:[{role:'system',content:KB},...bHist]
+      })
+    });
+    const data=await r.json();
+    bUntype();
+    if(data.choices?.[0]?.message?.content){
+      const rep=data.choices[0].message.content;
+      bHist.push({role:'assistant',content:rep});
+      bAgreg(rep,'bot');
+    }else{
+      bAgreg('❌ '+(data.error?.message||'Error. Intentá de nuevo.'),'bot');
+    }
+  }catch(e){bUntype();bAgreg('No pude conectarme. Verificá tu conexión.','bot')}
+  bOcup=false;document.getElementById('bSend').disabled=false;
+}
+
+function bRapido(txt){document.getElementById('bInp').value=txt;bEnviar()}
+function bTecla(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();bEnviar()}}
+function bAutoH(el){el.style.height='40px';el.style.height=Math.min(el.scrollHeight,100)+'px'}
+function enviarForm(){document.getElementById('formCampos').style.display='none';document.getElementById('formOk').style.display='block'}
+
+// Fade in scroll
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')}),{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
