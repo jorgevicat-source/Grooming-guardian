@@ -12,7 +12,7 @@ export default async function handler(req, res) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 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',
+        'Authorization': 'Bearer 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',
         'HTTP-Referer': 'https://redguardian.vercel.app',
         'X-Title': 'GUARDIAN'
       },
