@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Qué hago ahora? — Grooming Cero</title>
+<meta name="description" content="Protocolo de acción inmediata para familias ante una situación de grooming. Pasos concretos según tu situación específica.">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --verde:#1A6B4A;--verde-med:#2D8B63;--verde-claro:#E8F5EF;
+  --naranja:#C94A1A;--naranja-claro:#FEF0EB;
+  --rojo:#B91C1C;--rojo-claro:#FEF2F2;
+  --amarillo:#92400E;--amarillo-claro:#FFFBEB;
+  --texto:#1C1C1E;--suave:#6B7280;--crema:#F7F4EF;--blanco:#FFFFFF;--borde:#E5E7EB;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--texto);background:var(--crema);overflow-x:hidden;min-height:100vh}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(247,244,239,0.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--borde);padding:0 6%;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-icon{width:30px;height:30px;color:var(--verde)}
+.nav-brand{font-family:'Lora',serif;font-style:italic;font-size:17px;color:var(--verde)}
+.nav-back{font-size:13px;color:var(--suave);text-decoration:none;padding:6px 14px;border:1px solid var(--borde);border-radius:6px;background:#fff;transition:all .2s}
+.nav-back:hover{color:var(--verde);border-color:var(--verde)}
+
+/* HERO */
+.hero{padding:100px 6% 60px;background:#fff;border-bottom:1px solid var(--borde)}
+.hero-inner{max-width:680px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--rojo-claro);border:1px solid #FECACA;border-radius:20px;padding:5px 14px;margin-bottom:24px}
+.hero-dot{width:7px;height:7px;background:var(--rojo);border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.85)}}
+.hero-eyebrow span{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--rojo)}
+h1{font-family:'Lora',serif;font-size:clamp(34px,5vw,52px);font-weight:400;line-height:1.1;color:var(--texto);margin-bottom:18px}
+h1 em{font-style:italic;color:var(--verde)}
+.hero-desc{font-size:16px;color:var(--suave);line-height:1.8;max-width:520px;font-weight:300}
+
+/* PROGRESS */
+.progress-wrap{background:#fff;border-bottom:1px solid var(--borde);padding:0 6%;position:sticky;top:64px;z-index:100}
+.progress-inner{max-width:680px;margin:0 auto;display:flex;align-items:center;gap:0;height:52px}
+.prog-step{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--suave);padding:0 16px 0 0;position:relative;flex-shrink:0}
+.prog-step:not(:last-child)::after{content:'→';margin-left:8px;color:#D1D5DB;font-size:11px}
+.prog-n{width:22px;height:22px;border-radius:50%;border:1.5px solid #D1D5DB;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#9CA3AF;transition:all .3s;flex-shrink:0}
+.prog-step.active .prog-n{background:var(--verde);border-color:var(--verde);color:#fff}
+.prog-step.done .prog-n{background:var(--verde-claro);border-color:var(--verde);color:var(--verde)}
+.prog-step.active .prog-lbl{color:var(--verde);font-weight:500}
+
+/* MAIN */
+.main{max-width:680px;margin:0 auto;padding:48px 6% 80px}
+
+/* CARDS */
+.step-card{background:#fff;border-radius:16px;border:1px solid var(--borde);padding:36px;margin-bottom:24px;display:none}
+.step-card.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.step-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--suave);margin-bottom:8px}
+.step-q{font-family:'Lora',serif;font-size:22px;font-weight:400;line-height:1.35;margin-bottom:8px;color:var(--texto)}
+.step-hint{font-size:14px;color:var(--suave);margin-bottom:28px;line-height:1.6}
+
+/* OPTIONS */
+.options-grid{display:grid;gap:10px}
+.opt-btn{width:100%;text-align:left;padding:16px 18px;border-radius:10px;border:1.5px solid var(--borde);background:#fff;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;display:flex;align-items:flex-start;gap:14px}
+.opt-btn:hover{border-color:var(--verde);background:var(--verde-claro)}
+.opt-btn.selected{border-color:var(--verde);background:var(--verde-claro)}
+.opt-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.opt-text{flex:1}
+.opt-title{font-size:14px;font-weight:500;color:var(--texto);margin-bottom:2px}
+.opt-desc{font-size:12px;color:var(--suave);line-height:1.4}
+
+/* AGE SELECTOR */
+.age-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.age-btn{padding:14px 8px;border-radius:10px;border:1.5px solid var(--borde);background:#fff;cursor:pointer;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:var(--suave);transition:all .2s;text-align:center}
+.age-btn:hover{border-color:var(--verde);background:var(--verde-claro);color:var(--verde)}
+.age-btn.selected{border-color:var(--verde);background:var(--verde-claro);color:var(--verde)}
+
+/* TOGGLE */
+.toggle-row{display:flex;gap:10px;margin-bottom:10px}
+.toggle-btn{flex:1;padding:14px;border-radius:10px;border:1.5px solid var(--borde);background:#fff;cursor:pointer;font-family:'Inter',sans-serif;font-size:14px;font-weight:400;color:var(--suave);transition:all .2s;text-align:center}
+.toggle-btn:hover{border-color:var(--verde);background:var(--verde-claro)}
+.toggle-btn.selected{border-color:var(--verde);background:var(--verde-claro);color:var(--verde);font-weight:500}
+.toggle-btn.red.selected{border-color:var(--naranja);background:var(--naranja-claro);color:var(--naranja)}
+
+/* NAV BUTTONS */
+.btn-row{display:flex;gap:12px;margin-top:28px;align-items:center}
+.btn-primary{padding:13px 28px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s}
+.btn-primary:hover{background:var(--verde-med)}
+.btn-primary:disabled{background:#D1D5DB;cursor:not-allowed}
+.btn-ghost{padding:13px 20px;background:transparent;color:var(--suave);border:1px solid var(--borde);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;cursor:pointer;transition:all .2s}
+.btn-ghost:hover{color:var(--texto);border-color:#9CA3AF}
+
+/* PROTOCOL */
+.protocol{display:none}
+.protocol.active{display:block;animation:fadeUp .4s ease}
+.proto-header{background:var(--texto);border-radius:16px;padding:32px;margin-bottom:24px;color:#fff}
+.proto-badge{display:inline-block;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:20px;color:rgba(255,255,255,0.75);margin-bottom:16px;font-weight:500}
+.proto-title{font-family:'Lora',serif;font-size:24px;font-weight:400;font-style:italic;line-height:1.3;margin-bottom:10px}
+.proto-summary{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.7;font-weight:300}
+
+.proto-alert{border-radius:12px;padding:20px 22px;margin-bottom:16px;display:flex;align-items:flex-start;gap:14px}
+.proto-alert.red{background:var(--rojo-claro);border:1px solid #FECACA}
+.proto-alert.amber{background:var(--amarillo-claro);border:1px solid #FDE68A}
+.proto-alert.green{background:var(--verde-claro);border:1px solid #A7F3D0}
+.proto-alert-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.proto-alert-text{font-size:14px;line-height:1.6}
+.proto-alert.red .proto-alert-text{color:#991B1B}
+.proto-alert.amber .proto-alert-text{color:#92400E}
+.proto-alert.green .proto-alert-text{color:#065F46}
+.proto-alert strong{display:block;font-weight:600;margin-bottom:3px}
+
+.proto-section-title{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--suave);margin:32px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--borde)}
+
+.paso{background:#fff;border-radius:12px;border:1px solid var(--borde);padding:22px;margin-bottom:10px;display:flex;gap:16px;align-items:flex-start}
+.paso-n{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;font-family:'Lora',serif;font-style:italic}
+.paso-n.verde{background:var(--verde-claro);color:var(--verde)}
+.paso-n.naranja{background:var(--naranja-claro);color:var(--naranja)}
+.paso-n.rojo{background:var(--rojo-claro);color:var(--rojo)}
+.paso-body{}
+.paso-title{font-size:14px;font-weight:600;color:var(--texto);margin-bottom:5px}
+.paso-desc{font-size:13px;color:var(--suave);line-height:1.65}
+.paso-fuente{font-size:11px;color:#9CA3AF;margin-top:8px;font-style:italic}
+
+.psico-card{background:linear-gradient(135deg,#0f3d2b,#1A6B4A);border-radius:12px;padding:24px;margin-top:6px}
+.psico-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:10px}
+.psico-text{font-size:14px;color:rgba(255,255,255,0.88);line-height:1.7;font-style:italic}
+
+.contactos{background:#fff;border-radius:12px;border:1px solid var(--borde);padding:22px;margin-top:10px}
+.contacto-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--borde)}
+.contacto-item:last-child{border-bottom:none;padding-bottom:0}
+.contacto-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.contacto-name{font-size:13px;font-weight:500;color:var(--texto);margin-bottom:2px}
+.contacto-detail{font-size:12px;color:var(--suave)}
+.contacto-tag{display:inline-block;font-size:10px;font-weight:500;padding:2px 8px;border-radius:10px;background:var(--verde-claro);color:var(--verde);margin-top:4px}
+
+.restart-btn{display:flex;align-items:center;gap:8px;padding:13px 22px;background:transparent;color:var(--suave);border:1px solid var(--borde);border-radius:8px;font-family:'Inter',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;margin-top:32px}
+.restart-btn:hover{color:var(--verde);border-color:var(--verde)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <svg class="nav-icon" viewBox="80 30 220 270" xmlns="http://www.w3.org/2000/svg">
+      <path d="M96 175 Q96 108 128 74 Q162 40 200 40 Q238 40 264 68 Q288 96 288 140 Q288 180 268 210 Q250 238 222 250 L218 232 Q242 222 258 196 Q274 170 274 140 Q274 102 254 78 Q232 54 200 54 Q168 54 144 80 Q116 110 116 175 Q116 218 138 246 Q152 262 170 268 L166 286 Q140 280 118 256 Q96 228 96 175 Z" fill="currentColor"/>
+      <ellipse cx="178" cy="118" rx="14" ry="14" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"/>
+      <path d="M166 132 Q162 150 156 172 L200 172 Q194 150 190 132 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" opacity="0.6"/>
+      <ellipse cx="216" cy="118" rx="14" ry="14" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.4"/>
+      <rect x="204" y="132" width="24" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.4"/>
+    </svg>
+    <span class="nav-brand">Grooming Cero</span>
+  </a>
+  <a class="nav-back" href="index.html">← Volver al sitio</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="hero-dot"></div>
+      <span>Protocolo de acción inmediata</span>
+    </div>
+    <h1>¿Qué hago <em>ahora</em>?</h1>
+    <p class="hero-desc">Respondé tres preguntas sobre tu situación. Te damos un protocolo concreto, paso a paso, pensado específicamente para lo que está viviendo tu hijx.</p>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <div class="prog-step active" id="prog-1">
+      <div class="prog-n">1</div>
+      <span class="prog-lbl">Tu hijx</span>
+    </div>
+    <div class="prog-step" id="prog-2">
+      <div class="prog-n">2</div>
+      <span class="prog-lbl">Señales</span>
+    </div>
+    <div class="prog-step" id="prog-3">
+      <div class="prog-n">3</div>
+      <span class="prog-lbl">Situación</span>
+    </div>
+    <div class="prog-step" id="prog-4">
+      <div class="prog-n">4</div>
+      <span class="prog-lbl">Protocolo</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- PASO 1: EDAD -->
+  <div class="step-card active" id="step-1">
+    <div class="step-label">Paso 1 de 3</div>
+    <div class="step-q">¿Cuántos años tiene tu hijx?</div>
+    <div class="step-hint">La edad nos ayuda a ajustar el protocolo, porque la forma de acercarse y los recursos disponibles son distintos.</div>
+    <div class="age-grid">
+      <button class="age-btn" onclick="selectAge('8-10','btn-age-1')" id="btn-age-1">8–10 años</button>
+      <button class="age-btn" onclick="selectAge('11-13','btn-age-2')" id="btn-age-2">11–13 años</button>
+      <button class="age-btn" onclick="selectAge('14-16','btn-age-3')" id="btn-age-3">14–16 años</button>
+      <button class="age-btn" onclick="selectAge('17+','btn-age-4')" id="btn-age-4">17 años o más</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn-primary" id="btn-next-1" onclick="goStep(2)" disabled>Continuar</button>
+    </div>
+  </div>
+
+  <!-- PASO 2: SEÑALES -->
+  <div class="step-card" id="step-2">
+    <div class="step-label">Paso 2 de 3</div>
+    <div class="step-q">¿Notaste algo diferente en tu hijx últimamente?</div>
+    <div class="step-hint">No hace falta que sea algo enorme. Pequeños cambios de comportamiento pueden ser información importante para el protocolo.</div>
+    <div class="options-grid">
+      <button class="opt-btn toggle-btn red" id="sig-1" onclick="toggleSignal('sig-1')">
+        <span class="opt-icon">📱</span>
+        <span class="opt-text">
+          <span class="opt-title">Oculta el celular o lo apaga cuando me acerco</span>
+        </span>
+      </button>
+      <button class="opt-btn toggle-btn red" id="sig-2" onclick="toggleSignal('sig-2')">
+        <span class="opt-icon">😶</span>
+        <span class="opt-text">
+          <span class="opt-title">Está más retraído/a, nervioso/a o irritable sin causa clara</span>
+        </span>
+      </button>
+      <button class="opt-btn toggle-btn red" id="sig-3" onclick="toggleSignal('sig-3')">
+        <span class="opt-icon">😰</span>
+        <span class="opt-text">
+          <span class="opt-title">Parece asustado/a o angustiado/a sin querer explicar por qué</span>
+        </span>
+      </button>
+      <button class="opt-btn toggle-btn red" id="sig-4" onclick="toggleSignal('sig-4')">
+        <span class="opt-icon">🌙</span>
+        <span class="opt-text">
+          <span class="opt-title">Se conecta de noche o en horarios raros</span>
+        </span>
+      </button>
+      <button class="opt-btn toggle-btn red" id="sig-5" onclick="toggleSignal('sig-5')">
+        <span class="opt-icon">💬</span>
+        <span class="opt-text">
+          <span class="opt-title">Habla con alguien pero no quiere decir quién es</span>
+        </span>
+      </button>
+      <button class="opt-btn toggle-btn" id="sig-6" onclick="toggleSignal('sig-6')" style="border-color:var(--borde)">
+        <span class="opt-icon">✓</span>
+        <span class="opt-text">
+          <span class="opt-title">No noto ningún cambio de comportamiento</span>
+        </span>
+      </button>
+    </div>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="goStep(3)">Continuar</button>
+      <button class="btn-ghost" onclick="goStep(1)">Atrás</button>
+    </div>
+  </div>
+
+  <!-- PASO 3: SITUACIÓN -->
+  <div class="step-card" id="step-3">
+    <div class="step-label">Paso 3 de 3</div>
+    <div class="step-q">¿Qué está pasando?</div>
+    <div class="step-hint">Elegí la situación que más se acerca a lo que estás viviendo. Si hay varias, elegí la más grave.</div>
+    <div class="options-grid">
+      <button class="opt-btn" onclick="selectSituation('fotos', this)">
+        <span class="opt-icon">📷</span>
+        <span class="opt-text">
+          <span class="opt-title">Recibió fotos o videos inapropiados</span>
+          <span class="opt-desc">Un adulto le mandó imágenes de contenido sexual o violento</span>
+        </span>
+      </button>
+      <button class="opt-btn" onclick="selectSituation('encuentro', this)">
+        <span class="opt-icon">📍</span>
+        <span class="opt-text">
+          <span class="opt-title">Le pidieron que se encuentre en persona</span>
+          <span class="opt-desc">Alguien que conoció online quiere verlo/a en la vida real</span>
+        </span>
+      </button>
+      <button class="opt-btn" onclick="selectSituation('pide-fotos', this)">
+        <span class="opt-icon">🎭</span>
+        <span class="opt-text">
+          <span class="opt-title">Le piden fotos o videos a cambio de algo</span>
+          <span class="opt-desc">Le ofrecen regalos, dinero o afecto a cambio de imágenes</span>
+        </span>
+      </button>
+      <button class="opt-btn" onclick="selectSituation('chantaje', this)">
+        <span class="opt-icon">🔒</span>
+        <span class="opt-text">
+          <span class="opt-title">Lo/la están chantajeando con imágenes</span>
+          <span class="opt-desc">Amenazan con difundir fotos o videos si no hace lo que piden</span>
+        </span>
+      </button>
+      <button class="opt-btn" onclick="selectSituation('mensajes', this)">
+        <span class="opt-icon">💬</span>
+        <span class="opt-text">
+          <span class="opt-title">Encontré conversaciones sospechosas</span>
+          <span class="opt-desc">Vi mensajes que me preocupan pero mi hijx no me contó nada</span>
+        </span>
+      </button>
+      <button class="opt-btn" onclick="selectSituation('confio', this)">
+        <span class="opt-icon">🤍</span>
+        <span class="opt-text">
+          <span class="opt-title">Me lo/la contó pero no sé qué tan grave es</span>
+          <span class="opt-desc">Tu hijx te habló de algo que le pasó y querés saber qué hacer</span>
+        </span>
+      </button>
+    </div>
+    <div class="btn-row">
+      <button class="btn-primary" id="btn-next-3" onclick="generateProtocol()" disabled>Ver mi protocolo</button>
+      <button class="btn-ghost" onclick="goStep(2)">Atrás</button>
+    </div>
+  </div>
+
+  <!-- PROTOCOLO -->
+  <div class="protocol" id="protocol-output"></div>
+
+</div>
+
+<script>
+const state = { age: null, signals: [], situation: null };
+
+function selectAge(val, btnId) {
+  state.age = val;
+  document.querySelectorAll('.age-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById(btnId).classList.add('selected');
+  document.getElementById('btn-next-1').disabled = false;
+}
+
+function toggleSignal(id) {
+  const btn = document.getElementById(id);
+  const isNone = id === 'sig-6';
+  if (isNone) {
+    document.querySelectorAll('[id^="sig-"]').forEach(b => b.classList.remove('selected'));
+    btn.classList.toggle('selected');
+    state.signals = btn.classList.contains('selected') ? ['none'] : [];
+  } else {
+    document.getElementById('sig-6').classList.remove('selected');
+    btn.classList.toggle('selected');
+    state.signals = Array.from(document.querySelectorAll('[id^="sig-"].selected')).map(b => b.id);
+    if (state.signals.includes('sig-6')) state.signals = state.signals.filter(s => s !== 'sig-6');
+  }
+}
+
+function selectSituation(val, btn) {
+  state.situation = val;
+  document.querySelectorAll('#step-3 .opt-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('btn-next-3').disabled = false;
+}
+
+function updateProgress(step) {
+  for (let i = 1; i <= 4; i++) {
+    const el = document.getElementById('prog-' + i);
+    el.classList.remove('active', 'done');
+    if (i < step) el.classList.add('done');
+    if (i === step) el.classList.add('active');
+  }
+}
+
+function goStep(n) {
+  document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('protocol-output').classList.remove('active');
+  if (n <= 3) {
+    document.getElementById('step-' + n).classList.add('active');
+    updateProgress(n);
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+}
+
+const protocols = {
+  fotos: {
+    urgencia: 'alta',
+    titulo: 'Tu hijx recibió contenido inapropiado',
+    resumen: 'Lo primero es mantener la calma y no reaccionar frente a él/ella. Lo que hacés en las próximas horas determina cuánta evidencia va a quedar disponible y cómo va a procesar esto tu hijx.',
+    alerta: { tipo: 'amber', icono: '⚠️', titulo: 'Antes de hacer nada:', texto: 'No borrés los mensajes ni bloquees al contacto todavía. Cada acción prematura puede destruir evidencia que va a necesitar la UFECI.' },
+    pasos: [
+      { color: 'verde', titulo: 'Capturá todo con fecha visible', desc: 'Tomá capturas de pantalla de los mensajes con la fecha y hora del celular visible. Si podés, hacé las capturas desde otro dispositivo fotografiando la pantalla — eso registra la metadata de la foto.', fuente: 'UFECI — Unidad Fiscal Especializada en Ciberdelincuencia' },
+      { color: 'verde', titulo: 'Anotá el perfil del contacto', desc: 'Nombre de usuario, foto de perfil, plataforma. Si tiene links a otros perfiles o información personal, anotala. No lo toques todavía.', fuente: '' },
+      { color: 'verde', titulo: 'Hablá con tu hijx sin juicio', desc: 'Buscá un momento tranquilo, sin celulares de por medio. Empezá con "¿cómo estás?" antes de ir directo al tema. Si se cierra, no insistas: dejá la puerta abierta.', fuente: 'SciELO 2024 — La respuesta del adulto determina si el menor vuelve a hablar' },
+      { color: 'naranja', titulo: 'Denunciá en la UFECI', desc: 'No es necesario tener certeza ni pruebas perfectas para denunciar. Podés llamar al 102 (24hs, gratuito) para orientación antes de ir en persona.', fuente: 'Ministerio Público Fiscal Argentina' },
+      { color: 'verde', titulo: 'Recién entonces, bloqueá al contacto', desc: 'Una vez que tenés capturas y número de denuncia, podés bloquear. También reportá el perfil en la plataforma (Instagram, TikTok, WhatsApp) — tienen obligación legal de responder.', fuente: '' },
+    ],
+    psico: 'Tu hijx probablemente sienta vergüenza o miedo a que te enojes. Lo más protector que podés hacer es que sepa que no está en problemas — que lo que pasó no es su culpa. Esa frase, dicha en el momento justo, cambia completamente lo que viene después.'
+  },
+  encuentro: {
+    urgencia: 'alta',
+    titulo: 'Le pidieron que se encuentre en persona',
+    resumen: 'Esta es la situación de mayor riesgo físico inmediato. El objetivo de las próximas horas es asegurarte de que el encuentro no ocurra y preservar toda la evidencia del contacto.',
+    alerta: { tipo: 'red', icono: '🚨', titulo: 'Prioridad absoluta:', texto: 'Si el encuentro está pautado para hoy o mañana, llamá al 911 o al 102 ahora. No esperes a tener más información.' },
+    pasos: [
+      { color: 'rojo', titulo: 'Asegurate de que no va a ir', desc: 'Sin acusaciones ni gritos: "Necesito que hoy te quedes en casa, te voy a explicar por qué". Si ya salió, ubicalo/a.', fuente: '' },
+      { color: 'verde', titulo: 'Capturá toda la conversación', desc: 'Todos los mensajes donde se organiza el encuentro: fecha, lugar, promesas. No borres nada ni cierres la app.', fuente: 'UFECI' },
+      { color: 'verde', titulo: 'Identificá al contacto', desc: 'Nombre, foto, plataforma, número de teléfono si lo tiene. Si tiene redes sociales vinculadas, copiá la URL del perfil.', fuente: '' },
+      { color: 'naranja', titulo: 'Denunciá de inmediato en la UFECI o al 102', desc: 'Llevá las capturas. La UFECI puede actuar en tiempo real en casos de riesgo inminente. Si hay un encuentro físico planeado, esto es urgente penal.', fuente: 'Ley 26.904 — Grooming — Código Penal Argentino' },
+      { color: 'verde', titulo: 'Acompañá emocionalmente después', desc: 'Tu hijx puede estar enamorado/a o convencido/a de que "es diferente". Entendé eso antes de reaccionar. El vínculo afectivo es parte del mecanismo del grooming.', fuente: '' },
+    ],
+    psico: 'El groomer construyó un vínculo de confianza antes de proponer el encuentro. Tu hijx puede estar confundido/a entre lo que siente y lo que está pasando. No compitas con ese vínculo: acompañalo/a a ver la situación, no lo/la forzás.'
+  },
+  'pide-fotos': {
+    urgencia: 'alta',
+    titulo: 'Le piden imágenes a cambio de algo',
+    resumen: 'Este mecanismo —dar algo para recibir fotos— es el núcleo del grooming. Si tu hijx todavía no mandó nada, tenés margen. Si ya lo hizo, el riesgo escala: puede haber chantaje.',
+    alerta: { tipo: 'amber', icono: '⚠️', titulo: 'Importante:', texto: 'No le preguntes si ya mandó fotos de manera directa en el primer momento. Esa pregunta, mal hecha, puede cerrarlo/a. Primero, creá el espacio.' },
+    pasos: [
+      { color: 'verde', titulo: 'Capturá los mensajes donde piden las fotos', desc: 'Especialmente si hay promesas de regalos, dinero, seguidores o afecto a cambio. Eso tiene peso legal directo.', fuente: 'UFECI' },
+      { color: 'verde', titulo: 'Hablá antes de preguntar', desc: '"Encontré algo que me preocupa y quiero entender qué pasó. No estás en problemas." Esa frase primero.', fuente: 'SciELO 2024 — Intervención temprana sin culpabilización' },
+      { color: 'verde', titulo: 'Preguntá sin presionar', desc: 'Si mandó algo: "¿Enviaste alguna foto?" Una vez, en tono calmo. Si no responde, no insistas ahora. Dejá que llegue cuando esté listo/a.', fuente: '' },
+      { color: 'naranja', titulo: 'Denunciá aunque no haya fotos enviadas', desc: 'La solicitud de imágenes a un menor es delito en sí misma (Art. 128 bis, CP Argentina). No necesitás esperar a que pase algo peor.', fuente: 'Art. 128 bis — Código Penal Argentina' },
+      { color: 'verde', titulo: 'Revisá la configuración de privacidad', desc: 'Perfil privado, desactivar quién puede mandar mensajes directos, revisar seguidores que no conoce en persona.', fuente: '' },
+    ],
+    psico: 'Tu hijx puede haber accedido porque sintió que era la única forma de mantener un vínculo que le importaba. Eso no lo hace responsable. La vergüenza que puede sentir es exactamente lo que el groomer usa para mantenerlo/a en silencio.'
+  },
+  chantaje: {
+    urgencia: 'crítica',
+    titulo: 'Lo/la están chantajeando con imágenes',
+    resumen: 'Esta es la situación de mayor daño psicológico inmediato. El chantajista usa el miedo y la vergüenza como armas. Lo más importante: no pagar no empeora la situación — al contrario.',
+    alerta: { tipo: 'red', icono: '🚨', titulo: 'No paguen. Nunca.', texto: 'El pago no detiene al chantajista — en el 90% de los casos documentados las demandas aumentan después del primer pago. Cada pago confirma que el mecanismo funciona.' },
+    pasos: [
+      { color: 'rojo', titulo: 'No paguen ni manden más imágenes', desc: 'Aunque amenace con difundir lo que tiene. Pagar o ceder prolonga y empeora el chantaje.', fuente: 'Europol IOCTA 2025' },
+      { color: 'verde', titulo: 'Capturá todas las amenazas', desc: 'Capturas de pantalla de cada mensaje amenazante, con fecha visible. Esto es evidencia penal directa.', fuente: 'UFECI' },
+      { color: 'rojo', titulo: 'No bloqueés todavía', desc: 'Bloquearlo puede enfurecer al chantajista y acelerar la difusión. Denunciá primero, bloqueá cuando te lo indique la UFECI.', fuente: 'UFECI — Protocolo de sextorsión' },
+      { color: 'naranja', titulo: 'Denunciá ahora en la UFECI o llamá al 102', desc: 'Sarmiento 663, 6° piso, CABA. Tel: (5411) 5071-0040. Si es una plataforma específica (Instagram, TikTok), podés también reportar a través de Take It Down (takeItDown.ncmec.org) para solicitar eliminación de imágenes.', fuente: 'NCMEC — National Center for Missing & Exploited Children' },
+      { color: 'verde', titulo: 'Acompañá a tu hijx sin culpa', desc: '"Hiciste bien en contarme. Esto no es tu culpa. Vamos a resolverlo juntos." Esas palabras, en ese orden, son el primer paso del tratamiento.', fuente: '' },
+    ],
+    psico: 'El chantajista apuesta a que el miedo a la vergüenza sea mayor que el miedo al daño. Romper ese silencio —que tu hijx te lo haya contado, o que vos lo hayas descubierto— es el acto más protector que puede ocurrir. A partir de acá, no están solos.'
+  },
+  mensajes: {
+    urgencia: 'media',
+    titulo: 'Encontré conversaciones sospechosas',
+    resumen: 'Encontraste algo preocupante pero tu hijx no te habló del tema. El desafío ahora es mantener la evidencia sin destruir la confianza que vas a necesitar en las próximas semanas.',
+    alerta: { tipo: 'amber', icono: '⚠️', titulo: 'No confrontes de entrada:', texto: 'La reacción inmediata de enojo o de prohibición puede cerrar el canal de comunicación justo cuando más lo necesitás. Planeá cómo vas a hablar.' },
+    pasos: [
+      { color: 'verde', titulo: 'Documentá lo que encontraste', desc: 'Capturas de pantalla con la fecha visible, antes de hablar. Si borrás o si tu hijx las borra después, necesitás tener registro.', fuente: 'UFECI' },
+      { color: 'verde', titulo: 'Evaluá el nivel de riesgo', desc: '¿Hay solicitud de encuentro? ¿Pedido de fotos? ¿Amenazas? ¿O es una conversación que te genera dudas? La gravedad cambia los pasos siguientes.', fuente: '' },
+      { color: 'verde', titulo: 'Creá el espacio para hablar', desc: 'No "tenemos que hablar" (genera ansiedad). Mejor: un momento en el auto, caminando, haciendo algo juntos. Los adolescentes hablan más cuando no hay contacto visual directo.', fuente: 'Psicología Social del Vínculo — Pichon-Rivière' },
+      { color: 'verde', titulo: 'Nombrá lo que viste sin acusar', desc: '"Vi algo en tu celular que me preocupó. No estoy enojada/o — quiero entender qué pasó." Así abrís sin cerrar.', fuente: '' },
+      { color: 'naranja', titulo: 'Si hay riesgo real, denunciá', desc: 'Si los mensajes implican solicitud de encuentro, imágenes o amenazas: UFECI, 102 o 0800-222-1717. Podés consultar de manera anónima antes de dar tu nombre.', fuente: 'Ministerio de Justicia Argentina' },
+    ],
+    psico: 'Tu hijx puede sentir que invadir su privacidad es una traición. Eso es válido y va a aparecer en la conversación. Podés reconocerlo: "Sé que revisé algo que era tuyo. Lo hice porque me importás y porque vi algo que me asustó." Eso no borra la tensión, pero la coloca en el lugar correcto.'
+  },
+  confio: {
+    urgencia: 'baja',
+    titulo: 'Tu hijx te lo contó — eso es enorme',
+    resumen: 'Que tu hijx haya venido a contarte es el mejor resultado posible en una situación de grooming. Lo que hacés en los próximos minutos determina si va a seguir contándote cosas. Primero escuchá. Todo lo demás puede esperar.',
+    alerta: { tipo: 'green', icono: '🤍', titulo: 'Lo más importante ahora:', texto: 'Antes de pensar en denuncias, capturas o protocolos — agradecele que haya venido a vos. Eso es lo primero.' },
+    pasos: [
+      { color: 'verde', titulo: 'Escuchá sin interrumpir', desc: 'Dejá que cuente a su ritmo. No hagas preguntas todavía. Sólo escuchá. El cerebro adolescente procesa mejor cuando no siente que está siendo interrogado.', fuente: 'SciELO 2024 — Intervención empática en revelación de abuso' },
+      { color: 'verde', titulo: 'Decí estas palabras exactas', desc: '"Hiciste bien en contarme. Esto no es tu culpa. Estoy acá." Después, silencio. Dejá que eso se asiente.', fuente: '' },
+      { color: 'verde', titulo: 'Preguntá solo lo necesario', desc: '¿Mandaste alguna foto? ¿Quedaste en encontrarte? ¿Sigue contactándote? Solo esas tres. Sin presionar si no responde.', fuente: '' },
+      { color: 'verde', titulo: 'Documentá lo que tu hijx te contó', desc: 'En cuanto puedas, y sin apuro, pedile que te muestre los mensajes. Si no quiere, no insistas hoy. Mañana se puede.', fuente: 'UFECI' },
+      { color: 'naranja', titulo: 'Evaluá si hay urgencia para denunciar', desc: 'Si hay un encuentro físico pautado o chantaje activo: denunciá hoy. Si no, tenés tiempo de hacerlo con calma. Llamá al 102 para orientación antes de decidir.', fuente: 'Ministerio Público Fiscal Argentina' },
+    ],
+    psico: 'Tu hijx rompió la barrera más difícil: el silencio. Eso requiere una valentía enorme, especialmente si siente vergüenza o miedo a que te enojes. Cada palabra que digas en los próximos cinco minutos va a quedar grabada. La calma que mostrés no es indiferencia: es el mayor acto de protección que podés hacer.'
+  }
+};
+
+function generateProtocol() {
+  const s = state.situation;
+  const p = protocols[s];
+  if (!p) return;
+
+  const ageLabels = { '8-10': '8 a 10 años', '11-13': '11 a 13 años', '14-16': '14 a 16 años', '17+': '17 años o más' };
+  const hasSignals = state.signals.length > 0 && !state.signals.includes('sig-6') && !state.signals.includes('none');
+
+  const urgColors = { alta: '#C94A1A', crítica: '#B91C1C', media: '#92400E', baja: '#1A6B4A' };
+  const urgLabels = { alta: 'Urgencia alta', crítica: 'Urgencia crítica — actuá hoy', media: 'Urgencia moderada', baja: 'Situación activa' };
+
+  let pasosHTML = p.pasos.map(paso => `
+    <div class="paso">
+      <div class="paso-n ${paso.color}">${p.pasos.indexOf(paso)+1}</div>
+      <div class="paso-body">
+        <div class="paso-title">${paso.titulo}</div>
+        <div class="paso-desc">${paso.desc}</div>
+        ${paso.fuente ? `<div class="paso-fuente">${paso.fuente}</div>` : ''}
+      </div>
+    </div>
+  `).join('');
+
+  const signalWarning = hasSignals ? `
+    <div class="proto-alert amber">
+      <div class="proto-alert-icon">👁</div>
+      <div class="proto-alert-text">
+        <strong>Tu hijx muestra señales de alerta emocional</strong>
+        Marcaste cambios de comportamiento. Esto sugiere que algo lleva tiempo pasando. Además del protocolo, considerá hablar con un profesional de salud mental en las próximas semanas.
+      </div>
+    </div>
+  ` : '';
+
+  const ageNote = (state.age === '8-10') ? `
+    <div class="proto-alert green">
+      <div class="proto-alert-icon">🌱</div>
+      <div class="proto-alert-text">
+        <strong>Niño/a de 8 a 10 años</strong>
+        A esta edad, la conversación tiene que ser muy concreta y sin detalles innecesarios. "Alguien te pedía cosas que no estaba bien" es suficiente. No necesitás que entienda todo ahora.
+      </div>
+    </div>
+  ` : (state.age === '17+') ? `
+    <div class="proto-alert green">
+      <div class="proto-alert-icon">🔑</div>
+      <div class="proto-alert-text">
+        <strong>Joven de 17 años o más</strong>
+        A esta edad la autonomía importa mucho. Involucralo/a en las decisiones: "¿Querés que vayamos juntos a hacer la denuncia?" en lugar de hacerlo sin avisarle.
+      </div>
+    </div>
+  ` : '';
+
+  const alertHTML = `
+    <div class="proto-alert ${p.alerta.tipo}">
+      <div class="proto-alert-icon">${p.alerta.icono}</div>
+      <div class="proto-alert-text">
+        <strong>${p.alerta.titulo}</strong>
+        ${p.alerta.texto}
+      </div>
+    </div>
+  `;
+
+  const html = `
+    <div class="proto-header">
+      <div class="proto-badge" style="background:rgba(${p.urgencia==='crítica'?'185,28,28':'201,74,26'},0.3);border-color:rgba(255,255,255,0.2)">${urgLabels[p.urgencia]}</div>
+      <div class="proto-title">${p.titulo}</div>
+      <div class="proto-summary">${p.resumen}</div>
+    </div>
+
+    ${alertHTML}
+    ${signalWarning}
+    ${ageNote}
+
+    <div class="proto-section-title">Pasos concretos — próximas 24 horas</div>
+    ${pasosHTML}
+
+    <div class="proto-section-title">Cómo acercarte a tu hijx</div>
+    <div class="psico-card">
+      <div class="psico-label">Perspectiva psicológica · Escuela de Psicología Social del Sur</div>
+      <div class="psico-text">${p.psico}</div>
+    </div>
+
+    <div class="proto-section-title">Dónde llamar ahora</div>
+    <div class="contactos">
+      <div class="contacto-item">
+        <div class="contacto-icon">📞</div>
+        <div>
+          <div class="contacto-name">102 — Línea de Niñez y Adolescencia</div>
+          <div class="contacto-detail">Gratuito · 24 horas · Todo el país</div>
+          <span class="contacto-tag">Llamar ahora</span>
+        </div>
+      </div>
+      <div class="contacto-item">
+        <div class="contacto-icon">🏛</div>
+        <div>
+          <div class="contacto-name">UFECI — Unidad Fiscal Especializada en Ciberdelincuencia</div>
+          <div class="contacto-detail">Tel: (5411) 5071-0040 · Sarmiento 663, 6° piso, CABA</div>
+          <span class="contacto-tag">Denuncia formal</span>
+        </div>
+      </div>
+      <div class="contacto-item">
+        <div class="contacto-icon">📱</div>
+        <div>
+          <div class="contacto-name">0800-222-1717</div>
+          <div class="contacto-detail">Equipo Niños contra el Grooming — Ministerio de Justicia · Gratuito</div>
+          <span class="contacto-tag">Orientación y consulta</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="restart-btn" onclick="restart()">
+      ← Volver a empezar con otra situación
+    </button>
+  `;
+
+  const output = document.getElementById('protocol-output');
+  output.innerHTML = html;
+
+  document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
+  output.classList.add('active');
+  updateProgress(4);
+  window.scrollTo({top: 0, behavior:'smooth'});
+}
+
+function restart() {
+  state.age = null; state.signals = []; state.situation = null;
+  document.querySelectorAll('.age-btn, .opt-btn, .toggle-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('btn-next-1').disabled = true;
+  document.getElementById('btn-next-3').disabled = true;
+  document.getElementById('protocol-output').classList.remove('active');
+  goStep(1);
+}
+</script>
+</body>
+</html>
